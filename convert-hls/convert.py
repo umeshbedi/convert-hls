@@ -77,10 +77,10 @@ def uploading_files(output_dir):
 import os
 import subprocess
 
-def generate_hls_variants(local_file_name):
+def generate_hls_variants(local_file_name, output_dir):
     # Create output directory based on file name
-    output_dir = os.path.splitext(local_file_name)[0]
-    os.makedirs(output_dir, exist_ok=True)
+    # output_dir = os.path.splitext(local_file_name)[0]
+    # os.makedirs(output_dir, exist_ok=True)
 
     segment_path = os.path.join(output_dir, "%v_%03d.ts")
     playlist_path = os.path.join(output_dir, "%v.m3u8")
@@ -137,7 +137,7 @@ if __name__ == "__main__":
         hls_output_dir = Path(formatted_filename)
         hls_output_dir.mkdir(exist_ok=True)
         print(f"Formatted filename: {formatted_filename}")
-        generate_hls_variants(formatted_filename)
+        generate_hls_variants(str(mp4), str(hls_output_dir))
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
