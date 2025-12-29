@@ -38,16 +38,16 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install boto3
-      - name: Debug workspace
+          pip install boto3 gdown
+      
+      - name: Downloading Drive File
         run: |
-          pwd
-          ls -R
-      - name: Run convert.py
+          cd convert-hls
+          python3 download.py
+      
+      - name: Convert and Upload to S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-        run: |
-          cd convert-hls
-          python3 convert.py
+        run: python3 convert.py
